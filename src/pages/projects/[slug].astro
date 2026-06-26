@@ -1,0 +1,124 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import { getAllProjects, getProject } from "@/lib/projects";
+
+export async function getStaticPaths() {
+  const projects = await getAllProjects();
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const project = await getProject(slug!);
+
+if (!project) {
+  return new Response(null, { status: 404, statusText: "Not Found" });
+}
+
+const { color } = project;
+const pageTitle = `${project.name} | Portfolio`;
+const pageDescription = project.description;
+const shellStyle = [
+  `--accent: ${color.accent}`,
+  `--accent-bright: ${color.accentBright}`,
+  `--accent-glow: ${color.glow}`,
+  `--project-accent: ${color.accent}`,
+  `--project-accent-bright: ${color.accentBright}`,
+  `--project-hint: ${color.hint}`,
+  `--project-glow: ${color.glow}`,
+].join("; ");
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} auroraStops={color.auroraStops}>
+  <main
+    class="relative z-[2] mx-auto w-[min(760px,calc(100%-40px))] pb-12 max-[560px]:w-[min(calc(100%-28px),760px)]"
+    style={shellStyle}
+  >
+    <SiteHeader />
+
+    <div
+      class="mt-2 rounded-[20px] border border-[var(--border)] bg-[rgba(6,6,11,0.82)] p-8 backdrop-blur-[22px] shadow-[0_24px_64px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,255,255,0.05)] max-[560px]:px-[18px] max-[560px]:py-6"
+    >
+      <article>
+        <a
+          class="inline-flex items-center text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+          href="/projects"
+        >
+          ← All projects
+        </a>
+
+        <header class="mb-10 mt-5 border-b border-[var(--border)] pb-7">
+          {project.type && (
+            <p class="mb-4 flex items-center gap-[9px] font-mono text-[0.72rem] font-medium lowercase tracking-[0.02em] text-[var(--text-muted)] before:size-[7px] before:shrink-0 before:rounded-sm before:bg-[var(--project-accent)] before:opacity-72 before:content-['']">
+              {project.type}
+            </p>
+          )}
+          <h1 class="mb-[18px] font-display text-[clamp(2.2rem,6vw,3.4rem)] font-extrabold leading-[1.02] tracking-[-0.03em] text-[var(--text)]">
+            {project.name}
+          </h1>
+          <p class="mb-7 max-w-[62ch] text-[clamp(1.05rem,2vw,1.2rem)] leading-[1.65] text-[var(--text-muted)]">
+            {project.description}
+          </p>
+
+          <div class="grid gap-5">
+            {
+              project.technologies.length > 0 && (
+                <div class="flex flex-wrap gap-2" aria-label="Technology stack">
+                  {project.technologies.map((item) => (
+                    <span class="rounded-full border border-[var(--border)] bg-white/[0.04] px-[11px] py-[5px] text-[0.78rem] font-semibold text-[rgba(244,244,248,0.84)]">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              )
+            }
+
+            {
+              (project.github || project.link) && (
+                <div class="flex flex-wrap gap-2.5">
+                  {
+                    project.github && (
+                      <a
+                        class="inline-flex min-h-[42px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[18px] text-[0.88rem] font-bold no-underline backdrop-blur-xl transition-[border-color,background,transform] duration-200 hover:-translate-y-px hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        GitHub
+                      </a>
+                    )
+                  }
+                  {
+                    project.link && (
+                      <a
+                        class="btn-project-primary inline-flex min-h-[42px] items-center justify-center rounded-full border border-transparent px-[18px] text-[0.88rem] font-bold text-white no-underline transition-[background,transform] duration-200 hover:-translate-y-px"
+                        href={project.link}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Live demo
+                      </a>
+                    )
+                  }
+                </div>
+              )
+            }
+          </div>
+        </header>
+
+        <div class="prose-portfolio prose-project" set:html={project.html} />
+      </article>
+    </div>
+
+    <nav class="border-t border-[var(--border)] px-0 py-6 pb-3" aria-label="Project navigation">
+      <a
+        class="inline-flex items-center text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+        href="/projects"
+      >
+        ← All projects
+      </a>
+    </nav>
+  </main>
+</BaseLayout>

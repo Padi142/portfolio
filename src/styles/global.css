@@ -1,0 +1,360 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Syne", "Plus Jakarta Sans", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --bg: #06060b;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(255, 255, 255, 0.07);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --text: #f4f4f8;
+  --text-muted: rgba(244, 244, 248, 0.62);
+  --accent: #a855f7;
+  --accent-bright: #c084fc;
+  --accent-glow: rgba(168, 85, 247, 0.35);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    position: relative;
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background: var(--bg);
+    overflow-x: hidden;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+@layer components {
+  .prose-portfolio {
+    @apply prose prose-invert max-w-none text-[var(--text-muted)] prose-headings:font-display prose-headings:tracking-tight prose-headings:text-[var(--text)] prose-p:mb-[1.1em] prose-strong:text-[var(--text)] prose-a:text-[var(--accent-bright)] prose-a:underline prose-a:underline-offset-[3px] hover:prose-a:text-[#e9d5ff] prose-li:marker:text-[var(--accent)] prose-blockquote:border-l-[var(--accent)] prose-blockquote:rounded-r-xl prose-blockquote:bg-[rgba(168,85,247,0.08)] prose-blockquote:text-[var(--text)] prose-blockquote:italic prose-code:rounded-md prose-code:bg-white/[0.07] prose-code:px-[0.4em] prose-code:py-[0.15em] prose-code:text-[#e9d5ff] prose-code:font-mono prose-code:text-[0.9em] prose-pre:rounded-xl prose-pre:border prose-pre:border-[var(--border)] prose-hr:border-[var(--border)] prose-img:rounded-[14px] prose-img:border prose-img:border-[var(--border)] prose-img:bg-white/[0.02] prose-th:bg-white/[0.04] prose-th:text-[var(--text)] prose-th:font-bold prose-td:text-[var(--text-muted)] prose-table:border-[var(--border)];
+
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .prose-portfolio > :first-child {
+    margin-top: 0;
+  }
+
+  .prose-portfolio > :last-child {
+    margin-bottom: 0;
+  }
+
+  .prose-portfolio h2 {
+    margin: 2.4em 0 0.8em;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .prose-portfolio h3 {
+    margin: 1.8em 0 0.6em;
+    font-size: 1.2rem;
+  }
+
+  .prose-portfolio h4 {
+    margin: 1.4em 0 0.5em;
+    font-size: 1.05rem;
+  }
+
+  .prose-portfolio ul,
+  .prose-portfolio ol {
+    margin: 0 0 1.2em;
+    padding-left: 1.35em;
+  }
+
+  .prose-portfolio li {
+    margin-bottom: 0.45em;
+  }
+
+  .prose-portfolio blockquote p:last-child {
+    margin-bottom: 0;
+  }
+
+  .prose-portfolio > pre.shiki,
+  .prose-portfolio pre.shiki {
+    margin: 1.4em 0;
+    padding: 1rem 1.1rem;
+    overflow-x: auto;
+    font-size: 0.86rem;
+    line-height: 1.6;
+  }
+
+  .prose-portfolio > pre.shiki code,
+  .prose-portfolio pre.shiki code {
+    display: block;
+    padding: 0;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .prose-project a {
+    color: var(--text);
+    text-decoration-color: color-mix(in srgb, var(--project-accent) 55%, transparent);
+  }
+
+  .prose-project a:hover {
+    color: var(--project-accent-bright);
+  }
+
+  .prose-project blockquote {
+    border-left-color: color-mix(in srgb, var(--project-accent) 45%, transparent);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .prose-project li::marker {
+    color: var(--text-muted);
+  }
+
+  .prose-writing a {
+    color: var(--text);
+    text-decoration-color: color-mix(in srgb, var(--project-accent) 55%, transparent);
+  }
+
+  .prose-writing a:hover {
+    color: var(--project-accent-bright);
+  }
+
+  .prose-writing blockquote {
+    border-left-color: color-mix(in srgb, var(--project-accent) 45%, transparent);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .prose-writing li::marker {
+    color: var(--text-muted);
+  }
+
+  .btn-project-primary {
+    background: color-mix(in srgb, var(--project-accent) 78%, #111);
+  }
+
+  .btn-project-primary:hover {
+    background: color-mix(in srgb, var(--project-accent) 88%, #111);
+  }
+
+  .terminal {
+    --term-bg: #0c0c10;
+    --term-border: rgba(255, 255, 255, 0.1);
+    --term-green: #50fa7b;
+    --term-cyan: #8be9fd;
+    --term-purple: #bd93f9;
+    --term-yellow: #f1fa8c;
+    --term-muted: rgba(244, 244, 248, 0.55);
+    --term-text: #e8e8ef;
+
+    @apply flex min-h-80 flex-col overflow-hidden rounded-xl border font-mono text-[0.8rem] leading-relaxed;
+
+    border-color: var(--term-border);
+    background: var(--term-bg);
+    box-shadow:
+      0 24px 64px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .terminal-titlebar {
+    @apply relative flex items-center px-3.5 py-3;
+
+    border-bottom: 1px solid var(--term-border);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent);
+  }
+
+  .terminal-lights {
+    @apply relative z-[1] flex gap-[7px];
+  }
+
+  .terminal-lights span {
+    @apply size-[11px] rounded-full;
+  }
+
+  .terminal-lights span:nth-child(1) {
+    background: #ff5f57;
+  }
+
+  .terminal-lights span:nth-child(2) {
+    background: #febc2e;
+  }
+
+  .terminal-lights span:nth-child(3) {
+    background: #28c840;
+  }
+
+  .terminal-title {
+    @apply absolute left-1/2 -translate-x-1/2 select-none text-center text-[0.72rem];
+
+    color: var(--term-muted);
+  }
+
+  .terminal-body {
+    @apply flex-1 overflow-y-auto px-4 pb-5 pt-[18px];
+  }
+
+  .terminal-line {
+    @apply m-0 flex flex-wrap items-baseline;
+  }
+
+  .terminal-prompt-user {
+    color: var(--term-green);
+  }
+
+  .terminal-prompt-at {
+    color: var(--term-muted);
+  }
+
+  .terminal-prompt-host {
+    color: var(--term-cyan);
+  }
+
+  .terminal-prompt-path {
+    color: var(--term-purple);
+  }
+
+  .terminal-prompt-symbol {
+    @apply mr-[0.35em];
+
+    color: var(--term-text);
+  }
+
+  .terminal-command {
+    color: var(--term-text);
+  }
+
+  .terminal-cursor {
+    @apply ml-px inline-block align-text-bottom;
+
+    width: 0.55em;
+    height: 1.1em;
+    background: var(--term-green);
+    animation: terminal-blink 1s step-end infinite;
+  }
+
+  .terminal-cursor.hidden {
+    @apply opacity-0;
+
+    animation: none;
+  }
+
+  .terminal-output {
+    @apply mt-3.5;
+
+    color: var(--term-text);
+  }
+
+  .terminal-output-block {
+    animation: terminal-fade-in 0.15s ease-out both;
+  }
+
+  .terminal-output-block + .terminal-output-block {
+    @apply mt-3;
+  }
+
+  .terminal-output :is(h1, h2, h3, h4) {
+    @apply m-0 mb-[0.4em] text-base font-bold leading-snug;
+
+    color: var(--term-yellow);
+  }
+
+  .terminal-output h1 {
+    @apply text-[1.05em];
+  }
+
+  .terminal-output p {
+    @apply mb-2;
+
+    color: var(--term-text);
+  }
+
+  .terminal-output ul {
+    @apply m-0 list-none pl-0;
+  }
+
+  .terminal-output ul > li::before {
+    content: "- ";
+    color: var(--term-green);
+  }
+
+  .terminal-output ol {
+    @apply m-0 list-decimal pl-5;
+  }
+
+  .terminal-output li {
+    @apply mb-1;
+
+    color: var(--term-text);
+  }
+
+  .terminal-output ol li::marker {
+    color: var(--term-green);
+  }
+
+  .terminal-output strong {
+    @apply font-bold;
+
+    color: var(--term-cyan);
+  }
+
+  .terminal-output code {
+    @apply rounded px-[0.35em] py-[0.1em] text-[0.92em];
+
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--term-purple);
+  }
+
+  .terminal-output a {
+    @apply underline underline-offset-2;
+
+    color: var(--term-cyan);
+  }
+
+  .terminal-sr {
+    @apply absolute m-[-1px] size-px overflow-hidden border-0 p-0 whitespace-nowrap;
+
+    clip: rect(0, 0, 0, 0);
+  }
+}
+
+@keyframes terminal-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes terminal-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-cursor,
+  .terminal-output-block {
+    animation: none;
+  }
+}

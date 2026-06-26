@@ -1,0 +1,112 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import { profile } from "@/data/profile";
+import { getAllProjects } from "@/lib/projects";
+
+const projects = await getAllProjects();
+const pageTitle = `Projects | ${profile.name}`;
+const pageDescription = "Selected projects with writeups.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="relative z-[2] mx-auto w-[min(1120px,calc(100%-40px))] pb-16 max-[560px]:w-[min(calc(100%-28px),1120px)]">
+    <SiteHeader />
+
+    <section class="py-12 max-[560px]:py-8" aria-labelledby="projects-title">
+      <a
+        class="inline-flex items-center text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+        href="/"
+      >
+        ← Home
+      </a>
+
+      <div class="mb-10 mt-6 grid gap-3">
+        <p class="m-0 text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">Work</p>
+        <h1
+          id="projects-title"
+          class="m-0 max-w-[720px] font-display text-[clamp(2.4rem,5vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.02em]"
+        >
+          All projects
+        </h1>
+        <p class="m-0 max-w-[560px] text-[1.05rem] leading-relaxed text-[var(--text-muted)]">
+            Short articles and introductions to my favorite project I did 
+        </p>
+      </div>
+
+      {
+        projects.length === 0 ? (
+          <p class="text-[var(--text-muted)]">No projects yet.</p>
+        ) : (
+          <div class="grid grid-cols-3 gap-5 max-[840px]:grid-cols-1">
+            {
+              projects.map((project) => (
+                <article
+                  class="group relative grid min-h-[340px] content-between gap-6 rounded-2xl border border-[var(--border)] bg-white/[0.03] p-6 backdrop-blur-xl transition-[border-color,background,transform] duration-[250ms] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.045] max-[840px]:min-h-0"
+                  style={`--project-accent: ${project.color.accent}; --project-accent-bright: ${project.color.accentBright}; --project-hint: ${project.color.hint}; --project-glow: ${project.color.glow};`}
+                >
+                  <a
+                    class="absolute inset-0 z-[1] rounded-2xl"
+                    href={`/projects/${project.slug}`}
+                    aria-label={`Read about ${project.name}`}
+                  />
+                  <div>
+                    {project.type && (
+                      <p class="mb-3.5 flex items-center gap-[9px] font-mono text-[0.72rem] font-medium lowercase tracking-[0.02em] text-[var(--text-muted)] before:size-[7px] before:shrink-0 before:rounded-sm before:bg-[var(--project-accent,var(--accent))] before:opacity-72 before:content-['']">
+                        {project.type}
+                      </p>
+                    )}
+                    <h2 class="mb-3.5 text-xl font-bold leading-snug">{project.name}</h2>
+                    <p class="text-[0.95rem] leading-relaxed text-[var(--text-muted)]">{project.description}</p>
+                  </div>
+                  <div class="flex flex-wrap gap-2" aria-label={`${project.name} technology stack`}>
+                    {project.technologies.map((item) => (
+                      <span class="rounded-full border border-[var(--border)] bg-white/[0.04] px-[11px] py-[5px] text-[0.78rem] font-semibold text-[rgba(244,244,248,0.8)]">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                  <div class="relative z-[2] flex flex-wrap items-center justify-between gap-3">
+                    <span class="text-[0.92rem] font-bold text-[var(--text-muted)] transition-colors duration-200 group-hover:text-[var(--text)]">
+                      Read article →
+                    </span>
+                    {
+                      (project.github || project.link) && (
+                        <div class="flex gap-3.5">
+                          {
+                            project.github && (
+                              <a
+                                class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                                href={project.github}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                GitHub
+                              </a>
+                            )
+                          }
+                          {
+                            project.link && (
+                              <a
+                                class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                                href={project.link}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                Demo
+                              </a>
+                            )
+                          }
+                        </div>
+                      )
+                    }
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        )
+      }
+    </section>
+  </main>
+</BaseLayout>

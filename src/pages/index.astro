@@ -1,0 +1,197 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import FocusTerminal from "@/components/FocusTerminal.jsx";
+import SiteHeader from "@/components/SiteHeader.astro";
+import { profile } from "@/data/profile";
+import { getAllProjects } from "@/lib/projects";
+import { getAllWriting } from "@/lib/writing";
+import focusContent from "@/content/focus.md?raw";
+
+const projects = await getAllProjects();
+const writing = await getAllWriting();
+
+const pageTitle = `${profile.name} | Portfolio`;
+const pageDescription = `${profile.name} is a ${profile.role} focused on ${profile.focus
+  .slice(0, 3)
+  .join(", ")}.`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="relative z-[2] mx-auto w-[min(1120px,calc(100%-40px))] max-[560px]:w-[min(calc(100%-28px),1120px)]">
+    <SiteHeader />
+
+    <section
+      class="grid min-h-[calc(100vh-300px)] grid-cols-[minmax(0,1fr)_360px] items-end gap-12 py-[72px] pb-[104px] max-[840px]:min-h-0 max-[840px]:grid-cols-1 max-[840px]:py-12 max-[840px]:pb-20"
+      aria-labelledby="intro-title"
+    >
+      <div class="max-w-[720px]">
+        <p class="mb-[18px] text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">{profile.role}</p>
+        <h1
+          id="intro-title"
+          class="mb-6 max-w-[900px] bg-gradient-to-b from-white to-[rgba(244,244,248,0.72)] bg-clip-text font-display text-[clamp(3.4rem,9vw,6.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-transparent max-[560px]:text-[clamp(2.6rem,16vw,3.8rem)]"
+        >
+          {profile.name}
+        </h1>
+        <p class="mb-9 max-w-[560px] text-[clamp(1.05rem,2vw,1.25rem)] leading-[1.65] text-[var(--text-muted)]">{profile.tagline}</p>
+        <div class="flex flex-wrap gap-3" aria-label="Profile links">
+          <a
+            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl transition-[border-color,background,transform] duration-200 hover:-translate-y-px hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
+            target="_blank"
+            href={profile.github}
+          >
+            GitHub
+          </a>
+          <a
+            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl transition-[border-color,background,transform] duration-200 hover:-translate-y-px hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
+            target="_blank"
+            href={profile.linkedin}
+          >
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <FocusTerminal client:visible content={focusContent} user="matyas" host="portfolio" />
+    </section>
+
+    <section class="border-t border-[var(--border)] py-[92px] max-[560px]:py-16" id="work" aria-labelledby="work-title">
+      <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
+        <div class="grid gap-3">
+          <p class="m-0 text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">Selected work</p>
+          <h2
+            id="work-title"
+            class="m-0 max-w-[640px] font-display text-[clamp(2rem,4.5vw,3.4rem)] font-bold leading-[1.02] tracking-[-0.02em]"
+          >
+            My favorite projects
+          </h2>
+        </div>
+        <a
+          class="text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+          href="/projects"
+        >
+          View all →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-3 gap-5 max-[840px]:grid-cols-1">
+        {
+          projects.map((project) => (
+            <article
+              class="group relative grid min-h-[340px] content-between gap-6 rounded-2xl border border-[var(--border)] bg-white/[0.03] p-6 backdrop-blur-xl transition-[border-color,background,transform] duration-[250ms] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.045] max-[840px]:min-h-0"
+              style={`--project-accent: ${project.color.accent}; --project-accent-bright: ${project.color.accentBright}; --project-hint: ${project.color.hint}; --project-glow: ${project.color.glow};`}
+            >
+              <a
+                class="absolute inset-0 z-[1] rounded-2xl"
+                href={`/projects/${project.slug}`}
+                aria-label={`Read about ${project.name}`}
+              />
+              <div>
+                {project.type && (
+                  <p class="mb-3.5 flex items-center gap-[9px] font-mono text-[0.72rem] font-medium lowercase tracking-[0.02em] text-[var(--text-muted)] before:size-[7px] before:shrink-0 before:rounded-sm before:bg-[var(--project-accent,var(--accent))] before:opacity-72 before:content-['']">
+                    {project.type}
+                  </p>
+                )}
+                <h3 class="mb-3.5 text-xl font-bold leading-snug">{project.name}</h3>
+                <p class="text-[0.95rem] leading-relaxed text-[var(--text-muted)]">{project.description}</p>
+              </div>
+              <div class="flex flex-wrap gap-2" aria-label={`${project.name} technology stack`}>
+                {project.technologies.map((item) => (
+                  <span class="rounded-full border border-[var(--border)] bg-white/[0.04] px-[11px] py-[5px] text-[0.78rem] font-semibold text-[rgba(244,244,248,0.8)]">
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <div class="relative z-[2] flex flex-wrap items-center justify-between gap-3">
+                <span class="text-[0.92rem] font-bold text-[var(--text-muted)] transition-colors duration-200 group-hover:text-[var(--text)]">
+                  Read article →
+                </span>
+                {
+                  (project.github || project.link) && (
+                    <div class="flex gap-3.5">
+                      {
+                        project.github && (
+                          <a
+                            class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                            href={project.github}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            GitHub
+                          </a>
+                        )
+                      }
+                      {
+                        project.link && (
+                          <a
+                            class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                            href={project.link}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Demo
+                          </a>
+                        )
+                      }
+                    </div>
+                  )
+                }
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section
+      class="grid grid-cols-[0.85fr_1fr] items-start gap-[52px] border-t border-[var(--border)] py-[92px] max-[840px]:grid-cols-1 max-[560px]:py-16"
+      id="writing"
+      aria-labelledby="writing-title"
+    >
+      <div class="flex flex-col justify-between gap-6">
+        <div>
+          <p class="m-0 text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">Writing</p>
+          <h2
+            id="writing-title"
+            class="mt-3 max-w-[640px] font-display text-[clamp(2rem,4.5vw,3.4rem)] font-bold leading-[1.02] tracking-[-0.02em]"
+          >
+            Articles and thoughts
+          </h2>
+        </div>
+        <a
+          class="text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+          href="/writing"
+        >
+          View all →
+        </a>
+      </div>
+
+      <ol class="m-0 grid list-none gap-4 p-0">
+        {
+          writing.map((article, index) => (
+            <li style={`--project-accent: ${article.color.accent}; --project-accent-bright: ${article.color.accentBright};`}>
+              <a
+                class="group block rounded-xl border border-[var(--border)] bg-white/[0.025] p-[18px] no-underline transition-[border-color,background,transform] duration-200 hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.04]"
+                href={`/writing/${article.slug}`}
+              >
+                <span class="mb-2 flex flex-wrap items-center gap-3 font-mono text-[0.68rem] lowercase tracking-[0.02em] text-[var(--text-muted)]">
+                  <span class="flex items-center gap-2">
+                    <span class="size-[7px] rounded-sm bg-[var(--project-accent,var(--accent))] opacity-72" aria-hidden="true" />
+                    <span class="font-extrabold tracking-[0.04em]">{String(index + 1).padStart(2, "0")}</span>
+                  </span>
+                  {article.category && <span>{article.category}</span>}
+                  {article.date && <time datetime={article.date}>{article.date}</time>}
+                </span>
+                <span class="block text-[clamp(1rem,1.8vw,1.15rem)] font-semibold leading-snug text-[var(--text)] transition-colors group-hover:text-white">
+                  {article.title}
+                </span>
+                <span class="mt-1.5 block text-[0.92rem] leading-relaxed text-[var(--text-muted)]">
+                  {article.description}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+  </main>
+</BaseLayout>

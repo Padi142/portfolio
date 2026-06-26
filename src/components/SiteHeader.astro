@@ -1,0 +1,23 @@
+---
+import AuroraThemePicker from "@/components/AuroraThemePicker.jsx";
+import { profile } from "@/data/profile";
+---
+
+<header
+  class="flex min-h-[88px] items-center justify-between gap-6 max-[560px]:flex-col max-[560px]:items-start"
+  aria-label="Site header"
+>
+  <a class="inline-flex items-center gap-2.5 font-extrabold tracking-tight no-underline" href="/" aria-label={`${profile.name} home`}>
+  </a>
+  <div class="flex items-center gap-5 max-[560px]:w-full max-[560px]:flex-col max-[560px]:items-start">
+    <AuroraThemePicker client:load />
+    <nav
+      class="flex flex-wrap justify-end gap-x-7 gap-y-2 text-[0.82rem] font-bold uppercase tracking-[0.08em] text-[var(--text-muted)] max-[560px]:justify-start"
+      aria-label="Primary navigation"
+    >
+      <a class="no-underline transition-colors hover:text-[var(--text)]" href="/projects">Work</a>
+      <a class="no-underline transition-colors hover:text-[var(--text)]" href="/writing">Writing</a>
+      <a class="no-underline transition-colors hover:text-[var(--text)]" href={`mailto:${profile.email}`}>Contact</a>
+    </nav>
+  </div>
+</header>

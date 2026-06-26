@@ -1,0 +1,72 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import { profile } from "@/data/profile";
+import { getAllWriting } from "@/lib/writing";
+
+const writing = await getAllWriting();
+const pageTitle = `Writing | ${profile.name}`;
+const pageDescription = "Articles and thoughts";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="relative z-[2] mx-auto w-[min(760px,calc(100%-40px))] pb-16 max-[560px]:w-[min(calc(100%-28px),760px)]">
+    <SiteHeader />
+
+    <section class="py-12 max-[560px]:py-8" aria-labelledby="writing-title">
+      <a
+        class="inline-flex items-center text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+        href="/"
+      >
+        ← Home
+      </a>
+
+      <div class="mb-10 mt-6 grid gap-3">
+        <p class="m-0 text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">Writing</p>
+        <h1
+          id="writing-title"
+          class="m-0 max-w-[720px] font-display text-[clamp(2.4rem,5vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.02em]"
+        >
+          All writing
+        </h1>
+        <p class="m-0 max-w-[560px] text-[1.05rem] leading-relaxed text-[var(--text-muted)]">
+          Short articles and thoughts I had.
+        </p>
+      </div>
+
+      {
+        writing.length === 0 ? (
+          <p class="text-[var(--text-muted)]">No articles yet.</p>
+        ) : (
+          <ol class="m-0 grid list-none gap-4 p-0">
+            {
+              writing.map((article, index) => (
+                <li style={`--project-accent: ${article.color.accent}; --project-accent-bright: ${article.color.accentBright};`}>
+                  <a
+                    class="group block rounded-xl border border-[var(--border)] bg-white/[0.025] p-[18px] no-underline transition-[border-color,background,transform] duration-200 hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.04]"
+                    href={`/writing/${article.slug}`}
+                  >
+                    <span class="mb-2 flex flex-wrap items-center gap-3 font-mono text-[0.68rem] lowercase tracking-[0.02em] text-[var(--text-muted)]">
+                      <span class="flex items-center gap-2">
+                        <span class="size-[7px] rounded-sm bg-[var(--project-accent,var(--accent))] opacity-72" aria-hidden="true" />
+                        <span class="font-extrabold tracking-[0.04em]">{String(index + 1).padStart(2, "0")}</span>
+                      </span>
+                      {article.category && <span>{article.category}</span>}
+                      {article.date && <time datetime={article.date}>{article.date}</time>}
+                    </span>
+                    <span class="block text-[clamp(1rem,1.8vw,1.15rem)] font-semibold leading-snug text-[var(--text)] transition-colors group-hover:text-white">
+                      {article.title}
+                    </span>
+                    <span class="mt-1.5 block text-[0.92rem] leading-relaxed text-[var(--text-muted)]">
+                      {article.description}
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        )
+      }
+    </section>
+  </main>
+</BaseLayout>

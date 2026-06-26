@@ -1,0 +1,69 @@
+---
+import "@/styles/global.css";
+import AuroraBackground from "@/components/AuroraBackground.jsx";
+
+interface Props {
+  title: string;
+  description: string;
+  auroraStops?: [string, string, string];
+}
+
+const { title, description, auroraStops } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+      <AuroraBackground client:only="react" overrideColorStops={auroraStops} />
+    </div>
+    <div
+      class="pointer-events-none fixed inset-0 z-[1] bg-[length:24px_24px] bg-[radial-gradient(rgba(255,255,255,0.14)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_0%,black_20%,transparent_75%)]"
+      aria-hidden="true"
+    >
+    </div>
+    <slot />
+    <footer
+      class="relative z-[2] mx-auto w-[min(1120px,calc(100%-40px))] border-t border-[var(--border)] px-0 py-8 pb-11 text-center text-[0.9rem] font-semibold text-[var(--text-muted)] max-[560px]:w-[min(calc(100%-28px),1120px)] max-[560px]:pb-9"
+    >
+      <p class="m-0 leading-relaxed">
+        Built with
+        <a
+          class="mx-1 font-bold text-[rgba(244,244,248,0.9)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+          href="https://astro.build/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Astro
+        </a>
+        <span class="mx-1 text-[0.72rem] text-[var(--accent-bright)]" aria-hidden="true">•</span>
+        Deployed on the
+        <a
+          class="ml-1 font-bold text-[rgba(244,244,248,0.9)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+          href="https://www.cloudflare.com/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Orange Cloud
+        </a>
+      </p>
+    </footer>
+  </body>
+</html>
