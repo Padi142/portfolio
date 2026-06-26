@@ -7,6 +7,7 @@ technologies:
   - TypeScript
   - LLM tools
 order: 2
+github: https://github.com/Padi142/michal-bot
 ---
 
 ## TLDR
