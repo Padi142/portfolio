@@ -55,6 +55,21 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
           >
             YouTube
           </a>
+          <a
+            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl transition-[border-color,background,transform] duration-200 hover:-translate-y-px hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
+            target="_blank"
+            href={profile.twitter}
+          >
+            X
+          </a>
+          <a
+            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl transition-[border-color,background,transform] duration-200 hover:-translate-y-px hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
+            target="_blank"
+            href={profile.discord}
+            aria-label={`Discord (${profile.discordUsername})`}
+          >
+            Discord
+          </a>
         </div>
       </div>
 
