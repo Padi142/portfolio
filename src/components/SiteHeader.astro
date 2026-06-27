@@ -7,7 +7,11 @@ import { profile } from "@/data/profile";
   class="flex min-h-[88px] items-center justify-between gap-6 max-[560px]:flex-col max-[560px]:items-start"
   aria-label="Site header"
 >
-  <a class="inline-flex items-center gap-2.5 font-extrabold tracking-tight no-underline" href="/" aria-label={`${profile.name} home`}>
+  <a class="group grid size-10 place-items-center rounded-2xl border border-white/15 bg-white/[0.06] text-[var(--text)] shadow-[0_0_32px_var(--accent-glow)] transition hover:scale-105 hover:text-[var(--accent-bright)]" href="/" aria-label={`${profile.name} home`}>
+    <svg class="size-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M3.75 11.25 12 4.5l8.25 6.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M5.75 10.25v8.25a1 1 0 0 0 1 1h3.5v-5h3.5v5h3.5a1 1 0 0 0 1-1v-8.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
   </a>
   <div class="flex items-center gap-5 max-[560px]:w-full max-[560px]:flex-col max-[560px]:items-start">
     <AuroraThemePicker client:load />

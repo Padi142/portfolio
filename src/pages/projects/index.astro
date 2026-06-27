@@ -67,9 +67,12 @@ const pageDescription = "Selected projects with writeups.";
                     ))}
                   </div>
                   <div class="relative z-[2] flex flex-wrap items-center justify-between gap-3">
-                    <span class="text-[0.92rem] font-bold text-[var(--text-muted)] transition-colors duration-200 group-hover:text-[var(--text)]">
+                    <a
+                      class="relative z-[2] text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--accent-bright)] group-hover:text-[var(--text)]"
+                      href={`/projects/${project.slug}`}
+                    >
                       Read article →
-                    </span>
+                    </a>
                     {
                       (project.github || project.link) && (
                         <div class="flex gap-3.5">
