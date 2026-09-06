@@ -4,10 +4,12 @@ import FocusTerminal from "@/components/FocusTerminal.jsx";
 import SiteHeader from "@/components/SiteHeader.astro";
 import { profile } from "@/data/profile";
 import { getAllProjects } from "@/lib/projects";
+import { getAllApps } from "@/lib/apps";
 import { getAllWriting } from "@/lib/writing";
 import focusContent from "@/content/focus.md?raw";
 
 const projects = await getAllProjects();
+const apps = await getAllApps();
 const writing = await getAllWriting();
 
 const pageTitle = `${profile.name} | Portfolio`;
@@ -165,6 +167,62 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
           ))
         }
       </div>
+    </section>
+
+    <section
+      class="grid grid-cols-[0.85fr_1fr] items-start gap-[52px] border-t border-[var(--border)] py-[92px] max-[840px]:grid-cols-1 max-[560px]:py-16"
+      id="apps"
+      aria-labelledby="apps-title"
+    >
+      <div class="flex flex-col justify-between gap-6">
+        <div>
+          <p class="m-0 text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">Apps</p>
+          <h2
+            id="apps-title"
+            class="mt-3 max-w-[640px] font-display text-[clamp(2rem,4.5vw,3.4rem)] font-bold leading-[1.02] tracking-[-0.02em]"
+          >
+            Mobile apps
+          </h2>
+          <p class="mb-0 mt-4 max-w-[440px] text-[1.05rem] leading-relaxed text-[var(--text-muted)]">
+            Apps I built and shipped, with articles about how they were made.
+          </p>
+        </div>
+        <a
+          class="text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+          href="/apps"
+        >
+          View all →
+        </a>
+      </div>
+
+      <ol class="m-0 grid list-none gap-4 p-0">
+        {
+          apps.map((app) => (
+            <li style={`--project-accent: ${app.color.accent}; --project-accent-bright: ${app.color.accentBright};`}>
+              <a
+                class="group block rounded-xl border border-[var(--border)] bg-white/[0.025] p-[18px] no-underline transition-[border-color,background,transform] duration-200 hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.04]"
+                href={`/apps/${app.slug}`}
+              >
+                <span class="mb-2 flex flex-wrap items-center gap-3 font-mono text-[0.68rem] lowercase tracking-[0.02em] text-[var(--text-muted)]">
+                  <span class="flex items-center gap-2">
+                    <span class="size-[7px] rounded-sm bg-[var(--project-accent,var(--accent))] opacity-72" aria-hidden="true" />
+                    {app.type && <span>{app.type}</span>}
+                  </span>
+                  {app.android && <span>android</span>}
+                  {app.ios && <span>ios</span>}
+                  {app.web && <span>web</span>}
+                </span>
+                <span class="block text-[clamp(1rem,1.8vw,1.15rem)] font-semibold leading-snug text-[var(--text)] transition-colors group-hover:text-white">
+                  {app.name}
+                </span>
+                <span class="mt-1.5 block text-[0.92rem] leading-relaxed text-[var(--text-muted)]">
+                  {app.description}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
     </section>
 
     <section

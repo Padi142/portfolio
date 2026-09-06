@@ -1,0 +1,127 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import { profile } from "@/data/profile";
+import { getAllApps } from "@/lib/apps";
+
+const apps = await getAllApps();
+const pageTitle = `Apps | ${profile.name}`;
+const pageDescription = "My mobile apps, with writeups.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="relative z-[2] mx-auto w-[min(1120px,calc(100%-40px))] pb-16 max-[560px]:w-[min(calc(100%-28px),1120px)]">
+    <SiteHeader />
+
+    <section class="py-12 max-[560px]:py-8" aria-labelledby="apps-title">
+      <a
+        class="inline-flex items-center text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+        href="/"
+      >
+        ← Home
+      </a>
+
+      <div class="mb-10 mt-6 grid gap-3">
+        <p class="m-0 text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">Apps</p>
+        <h1
+          id="apps-title"
+          class="m-0 max-w-[720px] font-display text-[clamp(2.4rem,5vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.02em]"
+        >
+          All apps
+        </h1>
+        <p class="m-0 max-w-[560px] text-[1.05rem] leading-relaxed text-[var(--text-muted)]">
+            Mobile apps I built, with articles about how they were made 
+        </p>
+      </div>
+
+      {
+        apps.length === 0 ? (
+          <p class="text-[var(--text-muted)]">No apps yet.</p>
+        ) : (
+          <div class="grid grid-cols-3 gap-5 max-[840px]:grid-cols-1">
+            {
+              apps.map((app) => (
+                <article
+                  class="group relative grid min-h-[340px] content-between gap-6 rounded-2xl border border-[var(--border)] bg-white/[0.03] p-6 backdrop-blur-xl transition-[border-color,background,transform] duration-[250ms] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.045] max-[840px]:min-h-0"
+                  style={`--project-accent: ${app.color.accent}; --project-accent-bright: ${app.color.accentBright}; --project-hint: ${app.color.hint}; --project-glow: ${app.color.glow};`}
+                >
+                  <a
+                    class="absolute inset-0 z-[1] rounded-2xl"
+                    href={`/apps/${app.slug}`}
+                    aria-label={`Read about ${app.name}`}
+                  />
+                  <div>
+                    {app.type && (
+                      <p class="mb-3.5 flex items-center gap-[9px] font-mono text-[0.72rem] font-medium lowercase tracking-[0.02em] text-[var(--text-muted)] before:size-[7px] before:shrink-0 before:rounded-sm before:bg-[var(--project-accent,var(--accent))] before:opacity-72 before:content-['']">
+                        {app.type}
+                      </p>
+                    )}
+                    <h2 class="mb-3.5 text-xl font-bold leading-snug">{app.name}</h2>
+                    <p class="text-[0.95rem] leading-relaxed text-[var(--text-muted)]">{app.description}</p>
+                  </div>
+                  <div class="flex flex-wrap gap-2" aria-label={`${app.name} technology stack`}>
+                    {app.technologies.map((item) => (
+                      <span class="rounded-full border border-[var(--border)] bg-white/[0.04] px-[11px] py-[5px] text-[0.78rem] font-semibold text-[rgba(244,244,248,0.8)]">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                  <div class="relative z-[2] flex flex-wrap items-center justify-between gap-3">
+                    <a
+                      class="relative z-[2] text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--accent-bright)] group-hover:text-[var(--text)]"
+                      href={`/apps/${app.slug}`}
+                    >
+                      Read article →
+                    </a>
+                    {
+                      (app.android || app.ios || app.web) && (
+                        <div class="flex gap-3.5">
+                          {
+                            app.android && (
+                              <a
+                                class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                                href={app.android}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                Android
+                              </a>
+                            )
+                          }
+                          {
+                            app.ios && (
+                              <a
+                                class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                                href={app.ios}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                iOS
+                              </a>
+                            )
+                          }
+                          {
+                            app.web && (
+                              <a
+                                class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                                href={app.web}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                Web
+                              </a>
+                            )
+                          }
+                        </div>
+                      )
+                    }
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        )
+      }
+    </section>
+  </main>
+</BaseLayout>
