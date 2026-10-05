@@ -64,7 +64,7 @@ async function parseProjectFile(file: string): Promise<Project> {
     order: typeof data.order === "number" ? data.order : 999,
     content: trimmedContent,
     html: await renderMarkdown(trimmedContent),
-    color: getProjectTheme(data.name),
+    color: getProjectTheme(data.name, optionalString(data.color)),
   };
 }
 
