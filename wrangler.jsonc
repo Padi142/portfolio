@@ -2,6 +2,13 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "portfolio",
   "compatibility_date": "2026-06-25",
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+      "persist": true
+    }
+  },
   "assets": {
     "directory": "./dist"
   }
