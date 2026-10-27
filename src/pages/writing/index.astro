@@ -15,7 +15,7 @@ const pageDescription = "Articles and thoughts";
 
     <section class="py-12 max-[560px]:py-8" aria-labelledby="writing-title">
       <a
-        class="inline-flex items-center text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+        class="inline-flex items-center tap-target text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
         href="/"
       >
         ← Home
@@ -43,7 +43,7 @@ const pageDescription = "Articles and thoughts";
               writing.map((article, index) => (
                 <li style={`--project-accent: ${article.color.accent}; --project-accent-bright: ${article.color.accentBright};`}>
                   <a
-                    class="group block rounded-xl border border-[var(--border)] bg-white/[0.025] p-[18px] no-underline transition-[border-color,background,transform] duration-200 hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.04]"
+                    class="group block rounded-xl border border-[var(--border)] bg-white/[0.025] p-[18px] no-underline transition-[border-color,background,translate,scale] duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.99] hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.04]"
                     href={`/writing/${article.slug}`}
                   >
                     <span class="mb-2 flex flex-wrap items-center gap-3 font-mono text-[0.68rem] lowercase tracking-[0.02em] text-[var(--text-muted)]">

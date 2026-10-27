@@ -15,7 +15,7 @@ const pageDescription = "My mobile apps, with writeups.";
 
     <section class="py-12 max-[560px]:py-8" aria-labelledby="apps-title">
       <a
-        class="inline-flex items-center text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+        class="inline-flex items-center tap-target text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
         href="/"
       >
         ← Home
@@ -38,11 +38,11 @@ const pageDescription = "My mobile apps, with writeups.";
         apps.length === 0 ? (
           <p class="text-[var(--text-muted)]">No apps yet.</p>
         ) : (
-          <div class="grid grid-cols-3 gap-5 max-[840px]:grid-cols-1">
+          <div class="grid grid-cols-3 gap-5 max-[840px]:grid-cols-2 max-[560px]:grid-cols-1 max-[560px]:gap-4">
             {
               apps.map((app) => (
                 <article
-                  class="group relative grid min-h-[340px] content-between gap-6 rounded-2xl border border-[var(--border)] bg-white/[0.03] p-6 backdrop-blur-xl transition-[border-color,background,transform] duration-[250ms] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.045] max-[840px]:min-h-0"
+                  class="group relative grid min-h-[340px] content-between gap-6 rounded-2xl border border-[var(--border)] bg-white/[0.03] p-6 backdrop-blur-xl transition-[border-color,background,translate,scale] duration-[250ms] ease-out hover:-translate-y-0.5 active:scale-[0.99] hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.045] max-[840px]:min-h-0 max-[560px]:p-5"
                   style={`--project-accent: ${app.color.accent}; --project-accent-bright: ${app.color.accentBright}; --project-hint: ${app.color.hint}; --project-glow: ${app.color.glow};`}
                 >
                   <a
@@ -68,7 +68,7 @@ const pageDescription = "My mobile apps, with writeups.";
                   </div>
                   <div class="relative z-[2] flex flex-wrap items-center justify-between gap-3">
                     <a
-                      class="relative z-[2] text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--accent-bright)] group-hover:text-[var(--text)]"
+                      class="relative z-[2] tap-target text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--accent-bright)] group-hover:text-[var(--text)]"
                       href={`/apps/${app.slug}`}
                     >
                       Read article →
@@ -79,7 +79,7 @@ const pageDescription = "My mobile apps, with writeups.";
                           {
                             app.android && (
                               <a
-                                class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                                class="relative z-[2] tap-target text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
                                 href={app.android}
                                 target="_blank"
                                 rel="noreferrer"
@@ -91,7 +91,7 @@ const pageDescription = "My mobile apps, with writeups.";
                           {
                             app.ios && (
                               <a
-                                class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                                class="relative z-[2] tap-target text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
                                 href={app.ios}
                                 target="_blank"
                                 rel="noreferrer"
@@ -103,7 +103,7 @@ const pageDescription = "My mobile apps, with writeups.";
                           {
                             app.web && (
                               <a
-                                class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                                class="relative z-[2] tap-target text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
                                 href={app.web}
                                 target="_blank"
                                 rel="noreferrer"

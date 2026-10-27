@@ -109,6 +109,13 @@ void main() {
 }
 `;
 
+function toRgb(stops) {
+  return stops.map((hex) => {
+    const c = new Color(hex);
+    return [c.r, c.g, c.b];
+  });
+}
+
 export default function Aurora(props) {
   const { colorStops = ["#5227FF", "#7cff67", "#5227FF"], amplitude = 1.0, blend = 0.5 } = props;
   const propsRef = useRef(props);
@@ -149,10 +156,14 @@ export default function Aurora(props) {
       delete geometry.attributes.uv;
     }
 
-    const colorStopsArray = colorStops.map((hex) => {
-      const c = new Color(hex);
-      return [c.r, c.g, c.b];
-    });
+    // Theme changes ease toward the new stops instead of rebuilding the context.
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const colorEaseMs = reducedMotion ? 60 : 160;
+    const timeScale = reducedMotion ? 0.25 : 1;
+    let targetStops = propsRef.current.colorStops ?? colorStops;
+    let targetColors = toRgb(targetStops);
+    const currentColors = targetColors.map((rgb) => [...rgb]);
+    let lastFrame;
 
     program = new Program(gl, {
       vertex: VERT,
@@ -160,7 +171,7 @@ export default function Aurora(props) {
       uniforms: {
         uTime: { value: 0 },
         uAmplitude: { value: amplitude },
-        uColorStops: { value: colorStopsArray },
+        uColorStops: { value: currentColors },
         uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
         uBlend: { value: blend },
       },
@@ -173,14 +184,24 @@ export default function Aurora(props) {
     const update = (t) => {
       animateId = requestAnimationFrame(update);
       const { time = t * 0.01, speed = 1.0 } = propsRef.current;
-      program.uniforms.uTime.value = time * speed * 0.1;
+      program.uniforms.uTime.value = time * speed * 0.1 * timeScale;
       program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;
       program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
+
       const stops = propsRef.current.colorStops ?? colorStops;
-      program.uniforms.uColorStops.value = stops.map((hex) => {
-        const c = new Color(hex);
-        return [c.r, c.g, c.b];
-      });
+      if (stops !== targetStops) {
+        targetStops = stops;
+        targetColors = toRgb(stops);
+      }
+      const dt = lastFrame === undefined ? 0 : t - lastFrame;
+      lastFrame = t;
+      const k = 1 - Math.exp(-dt / colorEaseMs);
+      for (let i = 0; i < currentColors.length; i++) {
+        for (let j = 0; j < 3; j++) {
+          currentColors[i][j] += (targetColors[i][j] - currentColors[i][j]) * k;
+        }
+      }
+
       renderer.render({ scene: mesh });
     };
     animateId = requestAnimationFrame(update);
@@ -195,7 +216,7 @@ export default function Aurora(props) {
       }
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [amplitude, blend, colorStops]);
+  }, [amplitude, blend]);
 
   return <div ref={ctnDom} className="aurora-container" />;
 }

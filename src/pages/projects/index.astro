@@ -15,7 +15,7 @@ const pageDescription = "Selected projects with writeups.";
 
     <section class="py-12 max-[560px]:py-8" aria-labelledby="projects-title">
       <a
-        class="inline-flex items-center text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+        class="inline-flex items-center tap-target text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
         href="/"
       >
         ← Home
@@ -38,11 +38,11 @@ const pageDescription = "Selected projects with writeups.";
         projects.length === 0 ? (
           <p class="text-[var(--text-muted)]">No projects yet.</p>
         ) : (
-          <div class="grid grid-cols-3 gap-5 max-[840px]:grid-cols-1">
+          <div class="grid grid-cols-3 gap-5 max-[840px]:grid-cols-2 max-[560px]:grid-cols-1 max-[560px]:gap-4">
             {
               projects.map((project) => (
                 <article
-                  class="group relative grid min-h-[340px] content-between gap-6 rounded-2xl border border-[var(--border)] bg-white/[0.03] p-6 backdrop-blur-xl transition-[border-color,background,transform] duration-[250ms] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.045] max-[840px]:min-h-0"
+                  class="group relative grid min-h-[340px] content-between gap-6 rounded-2xl border border-[var(--border)] bg-white/[0.03] p-6 backdrop-blur-xl transition-[border-color,background,translate,scale] duration-[250ms] ease-out hover:-translate-y-0.5 active:scale-[0.99] hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.045] max-[840px]:min-h-0 max-[560px]:p-5"
                   style={`--project-accent: ${project.color.accent}; --project-accent-bright: ${project.color.accentBright}; --project-hint: ${project.color.hint}; --project-glow: ${project.color.glow};`}
                 >
                   <a
@@ -68,7 +68,7 @@ const pageDescription = "Selected projects with writeups.";
                   </div>
                   <div class="relative z-[2] flex flex-wrap items-center justify-between gap-3">
                     <a
-                      class="relative z-[2] text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--accent-bright)] group-hover:text-[var(--text)]"
+                      class="relative z-[2] tap-target text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--accent-bright)] group-hover:text-[var(--text)]"
                       href={`/projects/${project.slug}`}
                     >
                       Read article →
@@ -79,7 +79,7 @@ const pageDescription = "Selected projects with writeups.";
                           {
                             project.github && (
                               <a
-                                class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                                class="relative z-[2] tap-target text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
                                 href={project.github}
                                 target="_blank"
                                 rel="noreferrer"
@@ -91,7 +91,7 @@ const pageDescription = "Selected projects with writeups.";
                           {
                             project.link && (
                               <a
-                                class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                                class="relative z-[2] tap-target text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
                                 href={project.link}
                                 target="_blank"
                                 rel="noreferrer"

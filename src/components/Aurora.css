@@ -7,4 +7,18 @@
   display: block;
   width: 100%;
   height: 100%;
+  transition: opacity 600ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1));
+}
+
+/* The canvas is appended after hydration; fade it in instead of popping. */
+@starting-style {
+  .aurora-container canvas {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-container canvas {
+    transition-duration: 200ms;
+  }
 }

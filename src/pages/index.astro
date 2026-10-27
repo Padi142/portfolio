@@ -22,50 +22,60 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
   <main class="relative z-[2] mx-auto w-[min(1120px,calc(100%-40px))] max-[560px]:w-[min(calc(100%-28px),1120px)]">
     <SiteHeader />
 
+    <script is:inline>
+      try {
+        if (!sessionStorage.getItem("intro-played")) {
+          sessionStorage.setItem("intro-played", "1");
+          document.documentElement.dataset.intro = "";
+        }
+      } catch {}
+    </script>
+
     <section
-      class="grid min-h-[calc(100vh-300px)] grid-cols-[minmax(0,1fr)_360px] items-end gap-12 py-[72px] pb-[104px] max-[840px]:min-h-0 max-[840px]:grid-cols-1 max-[840px]:py-12 max-[840px]:pb-20"
+      class="grid min-h-[calc(100svh-300px)] grid-cols-[minmax(0,1fr)_360px] items-end gap-12 py-[72px] pb-[104px] max-[840px]:min-h-0 max-[840px]:grid-cols-1 max-[840px]:py-12 max-[840px]:pb-20 max-[560px]:gap-10 max-[560px]:pb-16 max-[560px]:pt-8"
       aria-labelledby="intro-title"
     >
       <div class="max-w-[720px]">
-        <p class="mb-[18px] text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">{profile.role}</p>
+        <p class="hero-enter mb-[18px] text-balance text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">{profile.role}</p>
         <h1
           id="intro-title"
-          class="mb-6 max-w-[900px] bg-gradient-to-b from-white to-[rgba(244,244,248,0.72)] bg-clip-text font-display text-[clamp(3.4rem,9vw,6.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-transparent max-[560px]:text-[clamp(2.6rem,16vw,3.8rem)]"
+          class="hero-enter mb-6 max-w-[900px] bg-gradient-to-b from-white to-[rgba(244,244,248,0.72)] bg-clip-text font-display text-[clamp(3.4rem,9vw,6.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-transparent max-[560px]:text-[clamp(2.4rem,15vw,3.8rem)]"
+          style="--i: 1"
         >
           {profile.name}
         </h1>
-        <p class="mb-9 max-w-[560px] text-[clamp(1.05rem,2vw,1.25rem)] leading-[1.65] text-[var(--text-muted)]">{profile.tagline}</p>
-        <div class="flex flex-wrap gap-3" aria-label="Profile links">
+        <p class="hero-enter mb-9 max-w-[560px] text-[clamp(1.05rem,2vw,1.25rem)] leading-[1.65] text-[var(--text-muted)]" style="--i: 2">{profile.tagline}</p>
+        <div class="hero-enter flex flex-wrap gap-3 max-[560px]:gap-2.5" style="--i: 3" aria-label="Profile links">
           <a
-            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl transition-[border-color,background,transform] duration-200 hover:-translate-y-px hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
+            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl max-[560px]:flex-1 transition-[border-color,background,translate,scale] duration-[160ms] ease-out hover:-translate-y-px active:scale-[0.97] hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
             target="_blank"
             href={profile.github}
           >
             GitHub
           </a>
           <a
-            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl transition-[border-color,background,transform] duration-200 hover:-translate-y-px hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
+            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl max-[560px]:flex-1 transition-[border-color,background,translate,scale] duration-[160ms] ease-out hover:-translate-y-px active:scale-[0.97] hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
             target="_blank"
             href={profile.linkedin}
           >
             LinkedIn
           </a>
           <a
-            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl transition-[border-color,background,transform] duration-200 hover:-translate-y-px hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
+            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl max-[560px]:flex-1 transition-[border-color,background,translate,scale] duration-[160ms] ease-out hover:-translate-y-px active:scale-[0.97] hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
             target="_blank"
             href={profile.youtube}
           >
             YouTube
           </a>
           <a
-            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl transition-[border-color,background,transform] duration-200 hover:-translate-y-px hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
+            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl max-[560px]:flex-1 transition-[border-color,background,translate,scale] duration-[160ms] ease-out hover:-translate-y-px active:scale-[0.97] hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
             target="_blank"
             href={profile.twitter}
           >
             X
           </a>
           <a
-            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl transition-[border-color,background,transform] duration-200 hover:-translate-y-px hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
+            class="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-[22px] text-[0.92rem] font-bold no-underline backdrop-blur-xl max-[560px]:flex-1 transition-[border-color,background,translate,scale] duration-[160ms] ease-out hover:-translate-y-px active:scale-[0.97] hover:border-white/[0.28] hover:bg-[var(--surface-strong)]"
             target="_blank"
             href={profile.discord}
             aria-label={`Discord (${profile.discordUsername})`}
@@ -78,8 +88,8 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
       <FocusTerminal client:visible content={focusContent} user="matyas" host="portfolio" />
     </section>
 
-    <section class="border-t border-[var(--border)] py-[92px] max-[560px]:py-16" id="work" aria-labelledby="work-title">
-      <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
+    <section class="border-t border-[var(--border)] py-[92px] max-[560px]:py-14" id="work" aria-labelledby="work-title">
+      <div class="mb-10 flex flex-wrap items-end justify-between gap-4 max-[560px]:mb-7">
         <div class="grid gap-3">
           <p class="m-0 text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">Selected work</p>
           <h2
@@ -90,18 +100,18 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
           </h2>
         </div>
         <a
-          class="text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+          class="tap-target text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
           href="/projects"
         >
           View all →
         </a>
       </div>
 
-      <div class="grid grid-cols-3 gap-5 max-[840px]:grid-cols-1">
+      <div class="no-scrollbar grid grid-cols-3 gap-5 max-[840px]:grid-cols-2 max-[560px]:-mx-3.5 max-[560px]:flex max-[560px]:snap-x max-[560px]:snap-mandatory max-[560px]:scroll-px-3.5 max-[560px]:gap-3 max-[560px]:overflow-x-auto max-[560px]:overscroll-x-contain max-[560px]:px-3.5 max-[560px]:py-1">
         {
           projects.map((project) => (
             <article
-              class="group relative grid min-h-[340px] content-between gap-6 rounded-2xl border border-[var(--border)] bg-white/[0.03] p-6 backdrop-blur-xl transition-[border-color,background,transform] duration-[250ms] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.045] max-[840px]:min-h-0"
+              class="group relative grid min-h-[340px] content-between gap-6 rounded-2xl border border-[var(--border)] bg-white/[0.03] p-6 backdrop-blur-xl transition-[border-color,background,translate,scale] duration-[250ms] ease-out hover:-translate-y-0.5 active:scale-[0.99] hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.045] max-[840px]:min-h-0 max-[560px]:w-[84%] max-[560px]:shrink-0 max-[560px]:snap-start max-[560px]:p-5"
               style={`--project-accent: ${project.color.accent}; --project-accent-bright: ${project.color.accentBright}; --project-hint: ${project.color.hint}; --project-glow: ${project.color.glow};`}
             >
               <a
@@ -127,7 +137,7 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
               </div>
               <div class="relative z-[2] flex flex-wrap items-center justify-between gap-3">
                 <a
-                  class="relative z-[2] text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--accent-bright)] group-hover:text-[var(--text)]"
+                  class="relative z-[2] tap-target text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--accent-bright)] group-hover:text-[var(--text)]"
                   href={`/projects/${project.slug}`}
                 >
                   Read article →
@@ -138,7 +148,7 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
                       {
                         project.github && (
                           <a
-                            class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                            class="relative z-[2] tap-target text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
                             href={project.github}
                             target="_blank"
                             rel="noreferrer"
@@ -150,7 +160,7 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
                       {
                         project.link && (
                           <a
-                            class="relative z-[2] text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
+                            class="relative z-[2] tap-target text-[0.82rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--accent-bright)]"
                             href={project.link}
                             target="_blank"
                             rel="noreferrer"
@@ -170,11 +180,11 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
     </section>
 
     <section
-      class="grid grid-cols-[0.85fr_1fr] items-start gap-[52px] border-t border-[var(--border)] py-[92px] max-[840px]:grid-cols-1 max-[560px]:py-16"
+      class="grid grid-cols-[0.85fr_1fr] items-start gap-[52px] border-t border-[var(--border)] py-[92px] max-[840px]:grid-cols-1 max-[840px]:gap-8 max-[560px]:gap-7 max-[560px]:py-14"
       id="apps"
       aria-labelledby="apps-title"
     >
-      <div class="flex flex-col justify-between gap-6">
+      <div class="flex flex-col justify-between gap-6 max-[560px]:gap-4">
         <div>
           <p class="m-0 text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">Apps</p>
           <h2
@@ -188,7 +198,7 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
           </p>
         </div>
         <a
-          class="text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+          class="tap-target self-start text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
           href="/apps"
         >
           View all →
@@ -200,7 +210,7 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
           apps.map((app) => (
             <li style={`--project-accent: ${app.color.accent}; --project-accent-bright: ${app.color.accentBright};`}>
               <a
-                class="group block rounded-xl border border-[var(--border)] bg-white/[0.025] p-[18px] no-underline transition-[border-color,background,transform] duration-200 hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.04]"
+                class="group block rounded-xl border border-[var(--border)] bg-white/[0.025] p-[18px] no-underline transition-[border-color,background,translate,scale] duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.99] hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.04]"
                 href={`/apps/${app.slug}`}
               >
                 <span class="mb-2 flex flex-wrap items-center gap-3 font-mono text-[0.68rem] lowercase tracking-[0.02em] text-[var(--text-muted)]">
@@ -226,11 +236,11 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
     </section>
 
     <section
-      class="grid grid-cols-[0.85fr_1fr] items-start gap-[52px] border-t border-[var(--border)] py-[92px] max-[840px]:grid-cols-1 max-[560px]:py-16"
+      class="grid grid-cols-[0.85fr_1fr] items-start gap-[52px] border-t border-[var(--border)] py-[92px] max-[840px]:grid-cols-1 max-[840px]:gap-8 max-[560px]:gap-7 max-[560px]:py-14"
       id="writing"
       aria-labelledby="writing-title"
     >
-      <div class="flex flex-col justify-between gap-6">
+      <div class="flex flex-col justify-between gap-6 max-[560px]:gap-4">
         <div>
           <p class="m-0 text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent-bright)]">Writing</p>
           <h2
@@ -241,7 +251,7 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
           </h2>
         </div>
         <a
-          class="text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+          class="tap-target self-start text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
           href="/writing"
         >
           View all →
@@ -253,7 +263,7 @@ const pageDescription = `${profile.name} is a ${profile.role} focused on ${profi
           writing.map((article, index) => (
             <li style={`--project-accent: ${article.color.accent}; --project-accent-bright: ${article.color.accentBright};`}>
               <a
-                class="group block rounded-xl border border-[var(--border)] bg-white/[0.025] p-[18px] no-underline transition-[border-color,background,transform] duration-200 hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.04]"
+                class="group block rounded-xl border border-[var(--border)] bg-white/[0.025] p-[18px] no-underline transition-[border-color,background,translate,scale] duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.99] hover:border-[color-mix(in_srgb,var(--project-accent,var(--accent))_14%,rgba(255,255,255,0.14))] hover:bg-white/[0.04]"
                 href={`/writing/${article.slug}`}
               >
                 <span class="mb-2 flex flex-wrap items-center gap-3 font-mono text-[0.68rem] lowercase tracking-[0.02em] text-[var(--text-muted)]">

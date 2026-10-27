@@ -4,25 +4,27 @@ import { profile } from "@/data/profile";
 ---
 
 <header
-  class="flex min-h-[88px] items-center justify-between gap-6 max-[560px]:flex-col max-[560px]:items-start"
+  class="flex min-h-[88px] items-center justify-between gap-6 max-[560px]:min-h-[68px] max-[560px]:flex-wrap max-[560px]:gap-x-2 max-[560px]:gap-y-0"
   aria-label="Site header"
 >
-  <a class="group grid size-10 place-items-center rounded-2xl border border-white/15 bg-white/[0.06] text-[var(--text)] shadow-[0_0_32px_var(--accent-glow)] transition hover:scale-105 hover:text-[var(--accent-bright)]" href="/" aria-label={`${profile.name} home`}>
+  <a class="group grid size-10 shrink-0 place-items-center rounded-2xl border border-white/15 bg-white/[0.06] text-[var(--text)] shadow-[0_0_32px_var(--accent-glow)] transition [view-transition-name:site-logo] hover:scale-105 hover:text-[var(--accent-bright)] active:scale-[0.97]" href="/" aria-label={`${profile.name} home`}>
     <svg class="size-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M3.75 11.25 12 4.5l8.25 6.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
       <path d="M5.75 10.25v8.25a1 1 0 0 0 1 1h3.5v-5h3.5v5h3.5a1 1 0 0 0 1-1v-8.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   </a>
-  <div class="flex items-center gap-5 max-[560px]:w-full max-[560px]:flex-col max-[560px]:items-start">
-    <AuroraThemePicker client:load />
+  <div class="flex items-center gap-5 [view-transition-name:site-nav] max-[560px]:gap-1.5 max-[340px]:gap-0.5">
+    <div class="max-[560px]:order-last">
+      <AuroraThemePicker client:load />
+    </div>
     <nav
-      class="flex flex-wrap justify-end gap-x-7 gap-y-2 text-[0.82rem] font-bold uppercase tracking-[0.08em] text-[var(--text-muted)] max-[560px]:justify-start"
+      class="flex flex-wrap justify-end gap-x-7 gap-y-2 text-[0.82rem] font-bold uppercase tracking-[0.08em] text-[var(--text-muted)] max-[560px]:flex-nowrap max-[560px]:gap-x-0 max-[560px]:text-[0.74rem] max-[560px]:tracking-[0.06em] max-[374px]:text-[0.7rem] max-[340px]:tracking-normal"
       aria-label="Primary navigation"
     >
-      <a class="no-underline transition-colors hover:text-[var(--text)]" href="/projects">Work</a>
-      <a class="no-underline transition-colors hover:text-[var(--text)]" href="/apps">Apps</a>
-      <a class="no-underline transition-colors hover:text-[var(--text)]" href="/writing">Writing</a>
-      <a class="no-underline transition-colors hover:text-[var(--text)]" href={profile.linkedin} target="_blank" rel="noopener noreferrer">Contact</a>
+      <a class="no-underline transition-colors hover:text-[var(--text)] active:text-[var(--text)] max-[840px]:py-3.5 max-[560px]:px-1.5 max-[340px]:px-1" href="/projects">Work</a>
+      <a class="no-underline transition-colors hover:text-[var(--text)] active:text-[var(--text)] max-[840px]:py-3.5 max-[560px]:px-1.5 max-[340px]:px-1" href="/apps">Apps</a>
+      <a class="no-underline transition-colors hover:text-[var(--text)] active:text-[var(--text)] max-[840px]:py-3.5 max-[560px]:px-1.5 max-[340px]:px-1" href="/writing">Writing</a>
+      <a class="no-underline transition-colors hover:text-[var(--text)] active:text-[var(--text)] max-[840px]:py-3.5 max-[560px]:px-1.5 max-[340px]:px-1" href={profile.linkedin} target="_blank" rel="noopener noreferrer">Contact</a>
     </nav>
   </div>
 </header>

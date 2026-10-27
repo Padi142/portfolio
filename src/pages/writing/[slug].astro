@@ -43,7 +43,7 @@ const shellStyle = [
     >
       <article>
         <a
-          class="inline-flex items-center text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+          class="inline-flex items-center tap-target text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
           href="/writing"
         >
           ← All writing
@@ -79,7 +79,7 @@ const shellStyle = [
           {
             article.link && (
               <a
-                class="btn-project-primary inline-flex min-h-[42px] items-center justify-center rounded-full border border-transparent px-[18px] text-[0.88rem] font-bold text-white no-underline transition-[background,transform] duration-200 hover:-translate-y-px"
+                class="btn-project-primary inline-flex min-h-[42px] items-center justify-center rounded-full border border-transparent px-[18px] text-[0.88rem] font-bold text-white no-underline transition-[background,translate,scale] duration-[160ms] ease-out hover:-translate-y-px active:scale-[0.97]"
                 href={article.link}
                 target="_blank"
                 rel="noreferrer"
@@ -96,7 +96,7 @@ const shellStyle = [
 
     <nav class="border-t border-[var(--border)] px-0 py-6 pb-3" aria-label="Writing navigation">
       <a
-        class="inline-flex items-center text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+        class="inline-flex items-center tap-target text-[0.92rem] font-bold text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
         href="/writing"
       >
         ← All writing
