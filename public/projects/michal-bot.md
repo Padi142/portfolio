@@ -6,7 +6,7 @@ technologies:
   - AI-SDK
   - TypeScript
   - LLM tools
-order: 4
+order: 5
 github: https://github.com/Padi142/michal-bot
 ---
 

@@ -12,7 +12,7 @@ technologies:
   - CLI
 github: https://github.com/Padi142/agentsync
 link: https://agentsync.krejzac.cz
-order: 6
+order: 3
 ---
 
 ## TLDR
